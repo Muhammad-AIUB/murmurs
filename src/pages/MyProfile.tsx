@@ -62,7 +62,6 @@ function MyProfile() {
         text: newMurmurText.trim(),
       });
       
-      // Add new murmur to the beginning of the list
       setMurmurs([response.data, ...murmurs]);
       setNewMurmurText('');
     } catch (error) {
@@ -121,7 +120,6 @@ function MyProfile() {
         </div>
       </div>
 
-      {/* Create Murmur Form */}
       <div className="murmur-card" style={{ marginTop: '32px', marginBottom: '24px' }}>
         <h2 style={{ fontSize: '18px', fontWeight: 700, marginBottom: '16px', color: '#14171a' }}>
           Create New Murmur

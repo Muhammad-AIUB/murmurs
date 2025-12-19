@@ -51,7 +51,6 @@ function MurmurDetail() {
       if (error && typeof error === 'object' && 'response' in error) {
         const axiosError = error as { response?: { status?: number } };
         if (axiosError.response?.status === 409) {
-          // Already liked - update state
           if (murmur) {
             setMurmur({ ...murmur, isLiked: true });
           }
@@ -81,7 +80,6 @@ function MurmurDetail() {
       if (error && typeof error === 'object' && 'response' in error) {
         const axiosError = error as { response?: { status?: number } };
         if (axiosError.response?.status === 404) {
-          // Like doesn't exist - update state
           if (murmur) {
             setMurmur({ ...murmur, isLiked: false });
           }
