@@ -22,7 +22,6 @@ export class Murmur {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  // Relations
   @ManyToOne(() => User, (user) => user.murmurs, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
   user!: User;

@@ -15,30 +15,18 @@ export class PublicMurmursController {
     private likeRepository: Repository<Like>,
   ) {}
 
-  /**
-   * GET /api/murmurs/
-   * Get timeline murmurs (from users that current user follows)
-   * Supports pagination with ?page=1&limit=10
-   */
   @Get()
   @UsePipes(new ValidationPipe({ transform: true, whitelist: true }))
   async getTimeline(@Query() paginationDto: PaginationDto) {
-    // TODO: Replace hardcoded userId with authenticated user ID
     const currentUserId = 1;
     return this.murmursService.getTimeline(currentUserId, paginationDto);
   }
 
-  /**
-   * GET /api/murmurs/:id
-   * Get murmur detail by ID
-   */
   @Get(':id')
   async getMurmur(@Param('id', ParseIntPipe) id: number) {
-    // TODO: Replace hardcoded userId with authenticated user ID
     const currentUserId = 1;
     const murmur = await this.murmursService.findOne(id);
     
-    // Check if current user has liked this murmur
     const like = await this.likeRepository.findOne({
       where: { userId: currentUserId, murmurId: id },
     });
@@ -49,8 +37,6 @@ export class PublicMurmursController {
       likeCount: murmur.likeCount,
       userId: murmur.userId,
       userName: murmur.user.name,
-      // TypeORM already handles timestamp conversion
-      // Just return as ISO string - frontend will handle timezone conversion
       createdAt: murmur.createdAt instanceof Date 
         ? murmur.createdAt.toISOString() 
         : new Date(murmur.createdAt).toISOString(),
@@ -58,13 +44,8 @@ export class PublicMurmursController {
     };
   }
 
-  /**
-   * POST /api/murmurs/:id/like
-   * Like a murmur
-   */
   @Post(':id/like')
   async like(@Param('id', ParseIntPipe) id: number) {
-    // TODO: Replace hardcoded userId with authenticated user ID
     const currentUserId = 1;
     const murmur = await this.likesService.like(id, currentUserId);
     
@@ -73,8 +54,6 @@ export class PublicMurmursController {
       text: murmur.text,
       likeCount: murmur.likeCount,
       userId: murmur.userId,
-      // TypeORM already handles timestamp conversion
-      // Just return as ISO string - frontend will handle timezone conversion
       createdAt: murmur.createdAt instanceof Date 
         ? murmur.createdAt.toISOString() 
         : new Date(murmur.createdAt).toISOString(),
@@ -82,13 +61,8 @@ export class PublicMurmursController {
     };
   }
 
-  /**
-   * DELETE /api/murmurs/:id/like
-   * Unlike a murmur
-   */
   @Delete(':id/like')
   async unlike(@Param('id', ParseIntPipe) id: number) {
-    // TODO: Replace hardcoded userId with authenticated user ID
     const currentUserId = 1;
     const murmur = await this.likesService.unlike(id, currentUserId);
     
@@ -97,8 +71,6 @@ export class PublicMurmursController {
       text: murmur.text,
       likeCount: murmur.likeCount,
       userId: murmur.userId,
-      // TypeORM already handles timestamp conversion
-      // Just return as ISO string - frontend will handle timezone conversion
       createdAt: murmur.createdAt instanceof Date 
         ? murmur.createdAt.toISOString() 
         : new Date(murmur.createdAt).toISOString(),

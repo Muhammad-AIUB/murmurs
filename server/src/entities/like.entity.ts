@@ -17,7 +17,6 @@ export class Like {
   @CreateDateColumn()
   createdAt!: Date;
 
-  // Relations
   @ManyToOne(() => User, (user) => user.likes, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'userId' })
   user!: User;

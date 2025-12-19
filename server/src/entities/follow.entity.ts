@@ -16,7 +16,6 @@ export class Follow {
   @CreateDateColumn()
   createdAt!: Date;
 
-  // Relations
   @ManyToOne(() => User, (user) => user.following, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'followerId' })
   follower!: User;

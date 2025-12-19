@@ -21,7 +21,6 @@ code {
     monospace;
 }
 
-/* Navigation Styles */
 nav {
   background-color: #ffffff;
   border-bottom: 1px solid #e1e8ed;
@@ -52,7 +51,6 @@ nav a.active {
   border-bottom-color: #1da1f2;
 }
 
-/* Container Styles */
 .container {
   max-width: 600px;
   margin: 0 auto;
@@ -70,7 +68,6 @@ nav a.active {
   border-bottom: 1px solid #e1e8ed;
 }
 
-/* Card Styles */
 .murmur-card {
   background-color: #ffffff;
   border: 1px solid #e1e8ed;
@@ -139,7 +136,6 @@ nav a.active {
   display: inline-block;
 }
 
-/* Button Styles */
 .btn {
   padding: 8px 16px;
   border: none;
@@ -191,7 +187,6 @@ nav a.active {
   font-size: 13px;
 }
 
-/* Like Count */
 .like-count {
   display: flex;
   align-items: center;
@@ -206,7 +201,6 @@ nav a.active {
   font-size: 16px;
 }
 
-/* Pagination Styles */
 .pagination {
   display: flex;
   justify-content: center;
@@ -223,7 +217,6 @@ nav a.active {
   font-weight: 500;
 }
 
-/* Loading State */
 .loading {
   display: flex;
   justify-content: center;
@@ -233,7 +226,6 @@ nav a.active {
   font-size: 16px;
 }
 
-/* Empty State */
 .empty-state {
   text-align: center;
   padding: 60px 20px;
@@ -245,7 +237,6 @@ nav a.active {
   margin-bottom: 8px;
 }
 
-/* Profile Styles */
 .profile-header {
   padding: 24px 0;
   border-bottom: 1px solid #e1e8ed;
@@ -285,12 +276,10 @@ nav a.active {
   color: #14171a;
 }
 
-/* User Profile Actions */
 .profile-actions {
   margin: 20px 0;
 }
 
-/* Error State */
 .error-message {
   padding: 20px;
   text-align: center;
@@ -301,7 +290,6 @@ nav a.active {
   margin: 20px 0;
 }
 
-/* Link Styles */
 .link-back {
   display: inline-flex;
   align-items: center;
@@ -319,7 +307,6 @@ nav a.active {
   text-decoration: underline;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
   .container {
     padding: 12px;
