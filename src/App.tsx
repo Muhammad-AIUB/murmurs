@@ -1,29 +1,24 @@
-import { useState, useEffect } from 'react'
-import axios from 'axios'
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import Timeline from './pages/Timeline';
+import MyProfile from './pages/MyProfile';
+import UserProfile from './pages/UserProfile';
+import MurmurDetail from './pages/MurmurDetail';
 
 function App() {
-  const [data, setData] = useState<any>(null)
-  
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios.post('http://localhost:3001/api/postTest')
-        console.log(res.data)
-        setData(res.data)
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      }
-    }
-    
-    fetchData()
-  }, [])
-
   return (
-    <div>
-      <h1>Display the data obtained from API here</h1>
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
-  )
+    <BrowserRouter>
+      <nav style={{ padding: '10px', borderBottom: '1px solid #ccc' }}>
+        <Link to="/" style={{ marginRight: '20px' }}>Timeline</Link>
+        <Link to="/me" style={{ marginRight: '20px' }}>My Profile</Link>
+      </nav>
+      <Routes>
+        <Route path="/" element={<Timeline />} />
+        <Route path="/me" element={<MyProfile />} />
+        <Route path="/users/:id" element={<UserProfile />} />
+        <Route path="/murmurs/:id" element={<MurmurDetail />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;
