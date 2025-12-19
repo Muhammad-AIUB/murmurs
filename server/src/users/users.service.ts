@@ -16,9 +16,6 @@ export class UsersService {
     private murmurRepository: Repository<Murmur>,
   ) {}
 
-  /**
-   * Find user by ID with follower/following counts
-   */
   async findOne(id: number, currentUserId?: number): Promise<any> {
     const user = await this.userRepository.findOne({
       where: { id },
@@ -28,17 +25,14 @@ export class UsersService {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
 
-    // Get follower count (how many users follow this user)
     const followerCount = await this.followRepository.count({
       where: { followedId: id },
     });
 
-    // Get following count (how many users this user follows)
     const followingCount = await this.followRepository.count({
       where: { followerId: id },
     });
 
-    // Check if current user is following this user
     let isFollowing = false;
     if (currentUserId && currentUserId !== id) {
       const follow = await this.followRepository.findOne({
@@ -58,20 +52,11 @@ export class UsersService {
     };
   }
 
-  /**
-   * Get current user profile (for /api/me endpoint)
-   * TODO: Replace hardcoded ID with authenticated user ID when auth is implemented
-   */
   async getCurrentUser(): Promise<any> {
-    // For now, return user ID 1 as current user
-    // This will be replaced with actual authentication later
     const currentUserId = 1;
     return this.findOne(currentUserId);
   }
 
-  /**
-   * Follow a user
-   */
   async follow(followerId: number, followedId: number): Promise<void> {
     if (followerId === followedId) {
       throw new ConflictException('Cannot follow yourself');
@@ -101,9 +86,6 @@ export class UsersService {
     await this.followRepository.save(follow);
   }
 
-  /**
-   * Unfollow a user
-   */
   async unfollow(followerId: number, followedId: number): Promise<void> {
     const follow = await this.followRepository.findOne({
       where: { followerId, followedId },
@@ -116,9 +98,6 @@ export class UsersService {
     await this.followRepository.remove(follow);
   }
 
-  /**
-   * Get user's murmurs
-   */
   async getUserMurmurs(userId: number): Promise<Murmur[]> {
     const user = await this.userRepository.findOne({
       where: { id: userId },

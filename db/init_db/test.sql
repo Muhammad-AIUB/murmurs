@@ -14,5 +14,3 @@ INSERT INTO test (id, name, description) VALUES (7, 'test7', 'This is test data 
 INSERT INTO test (id, name, description) VALUES (8, 'test8', 'This is test data 8');
 INSERT INTO test (id, name, description) VALUES (9, 'test9', 'This is test data 9');
 INSERT INTO test (id, name, description) VALUES (10, 'test10', 'This is test data 10');
-
-/* ALTER USER 'docker'@'localhost' IDENTIFIED WITH mysql_native_password BY 'docker' */

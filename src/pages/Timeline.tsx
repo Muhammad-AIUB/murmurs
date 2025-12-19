@@ -35,7 +35,6 @@ function Timeline() {
     try {
       setLoading(true);
       
-      // Get current user ID
       try {
         const currentUserResponse = await api.get<{ id: number }>('/me');
         setCurrentUserId(currentUserResponse.data.id);
@@ -58,7 +57,6 @@ function Timeline() {
     fetchTimeline();
   }, [page]);
 
-  // Fix pagination: ensure we don't go beyond totalPages
   const handleNextPage = () => {
     if (page < totalPages) {
       setPage(page + 1);
@@ -77,7 +75,6 @@ function Timeline() {
     try {
       setLikingIds((prev) => new Set(prev).add(murmurId));
       
-      // Optimistically update UI
       setMurmurs((prev) =>
         prev.map((m) =>
           m.id === murmurId 
@@ -88,9 +85,7 @@ function Timeline() {
 
       await api.post(`/murmurs/${murmurId}/like`);
       
-      // Don't call fetchTimeline() to avoid scroll jump
     } catch (error) {
-      // Revert on error
       setMurmurs((prev) =>
         prev.map((m) =>
           m.id === murmurId 
@@ -102,7 +97,6 @@ function Timeline() {
       if (error && typeof error === 'object' && 'response' in error) {
         const axiosError = error as { response?: { status?: number } };
         if (axiosError.response?.status === 409) {
-          // Already liked - update state to reflect this
           setMurmurs((prev) =>
             prev.map((m) =>
               m.id === murmurId ? { ...m, isLiked: true } : m
@@ -129,7 +123,6 @@ function Timeline() {
     try {
       setLikingIds((prev) => new Set(prev).add(murmurId));
       
-      // Optimistically update UI
       setMurmurs((prev) =>
         prev.map((m) =>
           m.id === murmurId 
@@ -140,9 +133,7 @@ function Timeline() {
 
       await api.delete(`/murmurs/${murmurId}/like`);
       
-      // Don't call fetchTimeline() to avoid scroll jump
     } catch (error) {
-      // Revert on error
       setMurmurs((prev) =>
         prev.map((m) =>
           m.id === murmurId 
@@ -154,7 +145,6 @@ function Timeline() {
       if (error && typeof error === 'object' && 'response' in error) {
         const axiosError = error as { response?: { status?: number } };
         if (axiosError.response?.status === 404) {
-          // Like doesn't exist - update state to reflect this
           setMurmurs((prev) =>
             prev.map((m) =>
               m.id === murmurId ? { ...m, isLiked: false } : m

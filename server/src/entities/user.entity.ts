@@ -20,7 +20,6 @@ export class User {
   @UpdateDateColumn()
   updatedAt!: Date;
 
-  // Relations
   @OneToMany(() => Murmur, (murmur) => murmur.user)
   murmurs!: Murmur[];
 

@@ -31,7 +31,6 @@ function UserProfile() {
     try {
       setLoading(true);
       
-      // Get current user ID
       try {
         const currentUserResponse = await api.get<User>('/me');
         setCurrentUserId(currentUserResponse.data.id);
@@ -42,7 +41,6 @@ function UserProfile() {
       const userResponse = await api.get<User>(`/users/${id}`);
       const userData = userResponse.data;
       setUser(userData);
-      // Set isFollowing state from API response
       setIsFollowing(userData.isFollowing || false);
       
       const murmursResponse = await api.get<Murmur[]>(`/users/${id}/murmurs`);
@@ -74,7 +72,6 @@ function UserProfile() {
       if (error && typeof error === 'object' && 'response' in error) {
         const axiosError = error as { response?: { status?: number } };
         if (axiosError.response?.status === 409) {
-          // Already following - update state to reflect this
           setIsFollowing(true);
           alert('You are already following this user');
         } else {
@@ -119,7 +116,6 @@ function UserProfile() {
     }
   };
 
-  // Check if viewing own profile
   const isOwnProfile = currentUserId !== null && id && parseInt(id) === currentUserId;
 
   if (loading) {
